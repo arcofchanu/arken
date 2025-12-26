@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, Hexagon } from 'lucide-react';
+import { Menu, X, Hexagon, Copy, Check } from 'lucide-react';
 import { useDownloadCount } from '../contexts/DownloadContext';
 
 export const Navbar: React.FC = () => {
@@ -9,7 +9,17 @@ export const Navbar: React.FC = () => {
   const [isHovered, setIsHovered] = useState(false);
   const [showDownloadPopup, setShowDownloadPopup] = useState(false);
   const [showFormModal, setShowFormModal] = useState(false);
+  const [showCreatorModal, setShowCreatorModal] = useState(false);
+  const [copied, setCopied] = useState(false);
   const { downloadCount, incrementDownloadCount } = useDownloadCount();
+  
+  const walletAddress = '3Gjpp9y6JScEJPRkMrND5oKMyMCwRfN1SPMNa8KFTesC';
+  
+  const handleCopyAddress = () => {
+    navigator.clipboard.writeText(walletAddress);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -107,15 +117,18 @@ export const Navbar: React.FC = () => {
 
         {/* Desktop Links */}
         <div className="hidden md:flex items-center gap-8">
-          {['Vision', 'Solutions'].map((item) => (
-            <a 
-              key={item} 
-              href={`#${item.toLowerCase()}`} 
-              className="text-sm font-medium text-purple-300 hover:text-white transition-all tracking-wide px-4 py-2 rounded-full border border-purple-500/30 bg-purple-900/20 hover:bg-purple-500/20 hover:border-purple-400/50"
-            >
-              {item}
-            </a>
-          ))}
+          <a 
+            href="#vision" 
+            className="text-sm font-medium text-purple-300 hover:text-white transition-all tracking-wide px-4 py-2 rounded-full border border-purple-500/30 bg-purple-900/20 hover:bg-purple-500/20 hover:border-purple-400/50"
+          >
+            Vision
+          </a>
+          <button 
+            onClick={() => setShowCreatorModal(true)}
+            className="text-sm font-medium text-purple-300 hover:text-white transition-all tracking-wide px-4 py-2 rounded-full border border-purple-500/30 bg-purple-900/20 hover:bg-purple-500/20 hover:border-purple-400/50"
+          >
+            Creator
+          </button>
           <button 
             onClick={handleDownloadExtension}
             className="px-5 py-2 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 text-white text-sm font-medium transition-all hover:scale-105 active:scale-95 relative group"
@@ -140,16 +153,22 @@ export const Navbar: React.FC = () => {
       {/* Mobile Menu */}
       {isMobileMenuOpen && (
         <div className="absolute top-full left-0 right-0 bg-black/95 backdrop-blur-xl border-b border-white/10 p-6 md:hidden flex flex-col gap-4 animate-in slide-in-from-top-2 fade-in duration-200">
-           {['Vision', 'Solutions'].map((item) => (
-            <a 
-              key={item} 
-              href={`#${item.toLowerCase()}`} 
-              onClick={() => setIsMobileMenuOpen(false)}
-              className="text-lg font-medium text-gray-300 hover:text-white transition-colors"
-            >
-              {item}
-            </a>
-          ))}
+          <a 
+            href="#vision" 
+            onClick={() => setIsMobileMenuOpen(false)}
+            className="text-lg font-medium text-gray-300 hover:text-white transition-colors"
+          >
+            Vision
+          </a>
+          <button 
+            onClick={() => {
+              setShowCreatorModal(true);
+              setIsMobileMenuOpen(false);
+            }}
+            className="text-lg font-medium text-gray-300 hover:text-white transition-colors text-left"
+          >
+            Creator
+          </button>
           <button 
             onClick={handleDownloadExtension}
             className="mt-4 w-full px-5 py-2 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 text-white text-sm font-medium transition-all hover:scale-105 active:scale-95 relative group"
@@ -159,6 +178,68 @@ export const Navbar: React.FC = () => {
             <span className="relative z-10">Download Extension</span>
           </button>
         </div>
+      )}
+      
+      {/* Creator Modal */}
+      {showCreatorModal && (
+        <>
+          {/* Backdrop */}
+          <div 
+            className="fixed inset-0 bg-black/80 backdrop-blur-sm z-[100]"
+            onClick={() => setShowCreatorModal(false)}
+          />
+          
+          {/* Modal */}
+          <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-[101] w-full max-w-md mx-4">
+            <div className="bg-black/95 backdrop-blur-xl border border-purple-500/30 rounded-2xl shadow-2xl animate-in zoom-in-95 fade-in duration-200 relative overflow-hidden">
+              {/* Close Button */}
+              <button
+                onClick={() => setShowCreatorModal(false)}
+                className="absolute top-4 right-4 z-10 p-2 rounded-full bg-black/50 hover:bg-white/10 text-gray-400 hover:text-white transition-colors"
+              >
+                <X size={20} />
+              </button>
+              
+              {/* Modal Content */}
+              <div className="p-8">
+                <h3 className="text-2xl font-bold text-white mb-6 text-center">Support the Creator</h3>
+                
+                {/* QR Code */}
+                <div className="bg-black p-4 rounded-lg mb-6 flex items-center justify-center">
+                  <img 
+                    src="/assets/solqr.png" 
+                    alt="Solana QR Code" 
+                    className="w-full max-w-[250px] h-auto"
+                  />
+                </div>
+                
+                {/* Wallet Address */}
+                <div className="mb-4">
+                  <p className="text-sm text-gray-400 mb-2 text-center">Solana Wallet Address</p>
+                  <div className="bg-purple-900/20 border border-purple-500/30 rounded-lg p-3 flex items-center gap-2">
+                    <code className="text-xs text-purple-300 break-all flex-1">
+                      {walletAddress}
+                    </code>
+                    <button
+                      onClick={handleCopyAddress}
+                      className="p-2 rounded-lg bg-purple-500/20 hover:bg-purple-500/30 text-purple-300 hover:text-white transition-all flex-shrink-0"
+                      title="Copy address"
+                    >
+                      {copied ? <Check size={16} /> : <Copy size={16} />}
+                    </button>
+                  </div>
+                  {copied && (
+                    <p className="text-xs text-green-400 mt-2 text-center">Address copied to clipboard!</p>
+                  )}
+                </div>
+                
+                <p className="text-xs text-gray-500 text-center mt-6">
+                  Thank you for your support! 💜
+                </p>
+              </div>
+            </div>
+          </div>
+        </>
       )}
       
       {/* Google Form Modal */}
