@@ -68,7 +68,7 @@ export const Navbar: React.FC = () => {
     <nav 
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b ${
         isScrolled 
-          ? 'bg-black/70 backdrop-blur-md border-white/10 py-4' 
+          ? 'bg-black/70 md:bg-transparent backdrop-blur-md md:backdrop-blur-none border-white/10 md:border-transparent py-4 md:py-6' 
           : 'bg-transparent border-transparent py-6'
       }`}
     >
@@ -111,7 +111,7 @@ export const Navbar: React.FC = () => {
             <a 
               key={item} 
               href={`#${item.toLowerCase()}`} 
-              className="text-sm font-medium text-gray-400 hover:text-white transition-colors tracking-wide"
+              className="text-sm font-medium text-purple-300 hover:text-white transition-all tracking-wide px-4 py-2 rounded-full border border-purple-500/30 bg-purple-900/20 hover:bg-purple-500/20 hover:border-purple-400/50"
             >
               {item}
             </a>
