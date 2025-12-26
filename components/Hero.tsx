@@ -76,19 +76,15 @@ export const Hero: React.FC = () => {
           </button>
         </div>
 
-        {/* Abstract Visual Element - Kept but made more subtle to blend with PixelBlast */}
+        {/* YouTube Video */}
         <div className="mt-24 w-full max-w-5xl aspect-[16/9] relative rounded-2xl overflow-hidden border border-white/10 shadow-2xl shadow-purple-900/20 animate-in fade-in zoom-in duration-1000 delay-500">
-          <div className="absolute inset-0 bg-gradient-to-tr from-purple-950/80 to-black/80 z-10" />
-          <img 
-            src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop" 
-            alt="Abstract 3D Shapes" 
-            className="absolute inset-0 w-full h-full object-cover opacity-60 mix-blend-overlay"
+          <iframe 
+            src="https://www.youtube.com/embed/SfUowVo5R8s"
+            title="ARKEN Demo"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+            className="absolute inset-0 w-full h-full"
           />
-          <div className="absolute inset-0 flex items-center justify-center z-20">
-               <div className="w-24 h-24 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center cursor-pointer group hover:bg-white/20 transition-all shadow-[0_0_40px_rgba(147,51,234,0.3)]">
-                  <div className="w-0 h-0 border-t-[10px] border-t-transparent border-l-[20px] border-l-white border-b-[10px] border-b-transparent ml-1 group-hover:scale-110 transition-transform" />
-               </div>
-          </div>
         </div>
       </div>
     </section>
