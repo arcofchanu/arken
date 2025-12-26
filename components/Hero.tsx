@@ -60,7 +60,7 @@ export const Hero: React.FC = () => {
         {/* Subtitle */}
         <p className="max-w-2xl text-lg md:text-xl text-gray-300 mb-12 leading-relaxed animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-200 drop-shadow-md">
           The definitive architecture for the next generation of digital presence. 
-          Minimalist, powerful, and intentionally designed for the future.
+          Minimalist, powerful, and intentionally designed for the New TRENCHERS.
         </p>
 
         {/* CTAs */}
