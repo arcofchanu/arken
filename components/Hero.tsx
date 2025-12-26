@@ -25,7 +25,7 @@ export const Hero: React.FC = () => {
       </div>
 
       {/* Content Container */}
-      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 flex flex-col items-center text-center pt-20 pb-20 md:pt-32 md:pb-32">
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 flex flex-col items-center text-center pt-24 pb-20 md:pt-16 md:pb-32">
         
         {/* Live Counter - Above the Badge */}
         <div className="mb-4 animate-in fade-in slide-in-from-bottom-2 duration-500">
